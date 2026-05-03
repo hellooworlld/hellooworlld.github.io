@@ -1,2 +1,2 @@
-# hellooworlld.github.io
+# renari.github.io
 creating a blog
