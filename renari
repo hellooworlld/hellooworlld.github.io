@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Re:Nari | Cultural Futures</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;scroll-behavior:smooth}
+body{font-family:'Times New Roman', Georgia, serif;background:linear-gradient(180deg,#8f0f1f,#6f0c18);color:#efe6d8;line-height:1.6;overflow-x:hidden}
+nav{position:fixed;top:0;width:100%;display:flex;justify-content:space-between;align-items:center;padding:22px 48px;background:rgba(143,15,31,.72);backdrop-filter:blur(14px);z-index:1000;border-bottom:1px solid rgba(239,230,216,.12)}
+nav a{color:#efe6d8;text-decoration:none;margin-left:24px;font-size:12px;letter-spacing:2px;text-transform:uppercase}
+.logo{font-size:32px;font-weight:bold;letter-spacing:1px}
+section{min-height:100vh;padding:120px 8% 70px;position:relative}
+.hero{display:flex;flex-direction:column;justify-content:center;align-items:flex-start}
+.hero:before{display:none}
+.hero h1{font-size:68px;line-height:1.02;margin-bottom:24px;max-width:760px;font-weight:400;letter-spacing:-1px}
+.hero p{max-width:620px;font-size:19px;margin-bottom:34px;color:#f5eede}
+.btn{display:inline-block;padding:15px 28px;border:1px solid #efe6d8;color:#efe6d8;text-decoration:none;margin-right:14px;border-radius:40px;transition:.35s}
+.btn:hover{background:#efe6d8;color:#8f0f1f;transform:translateY(-2px)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:26px;margin-top:42px}
+.card{border:1px solid rgba(239,230,216,.22);padding:28px;border-radius:24px;background:rgba(255,255,255,.04);backdrop-filter:blur(8px);transition:.35s}
+.card:hover{transform:translateY(-8px);background:rgba(255,255,255,.07)}
+.card h3{margin-bottom:12px;font-size:22px;font-weight:400}
+.card p{font-size:15px;color:#f5eede;line-height:1.8}
+.title{font-size:46px;margin-bottom:18px;font-weight:400;letter-spacing:-0.5px}
+.small{max-width:680px;font-size:18px}
+input,textarea{width:100%;padding:16px;margin-bottom:16px;background:rgba(255,255,255,.03);border:1px solid rgba(239,230,216,.35);color:#efe6d8;border-radius:14px}
+button{padding:16px 26px;background:#efe6d8;color:#8f0f1f;border:none;font-weight:bold;cursor:pointer;border-radius:40px}
+footer{text-align:center;padding:34px;border-top:1px solid rgba(239,230,216,.14)}
+.reveal{opacity:0;transform:translateY(30px);animation:rise 1s forwards}.reveal:nth-child(2){animation-delay:.15s}.reveal:nth-child(3){animation-delay:.3s}
+@keyframes rise{to{opacity:1;transform:none}}
+@media(max-width:768px){.hero h1{font-size:54px}.title{font-size:42px}nav{padding:18px 20px}.logo{font-size:24px}nav a{margin-left:10px;font-size:11px}}
+</style>
+</head>
+<body>
+<script>
+async function loadFeed(){
+const url='https://api.rss2json.com/v1/api.json?rss_url=https://anchor.fm/s/ff59c428/podcast/rss';
+try{
+const res=await fetch(url); const data=await res.json();
+const wrap=document.getElementById('episodes');
+wrap.innerHTML='';
+data.items.slice(0,8).forEach(ep=>{
+const div=document.createElement('div');
+div.className='card';
+div.innerHTML=`<h3>${ep.title}</h3><p>${(ep.description||'').replace(/<[^>]*>/g,'').slice(0,140)}...</p><br><a class="btn" target="_blank" href="${ep.link}">Listen</a>`;
+wrap.appendChild(div);
+});
+}catch(e){console.log(e)} }
+window.onload=loadFeed;
+</script>
+<nav>
+<div class="logo">Re:Nari</div>
+<div>
+<a href="#home">Home</a>
+<a href="#podcast">Podcast</a>
+<a href="#blog">Blog</a>
+<a href="#contact">Contact</a>
+</div>
+</nav>
+<section id="home" class="hero">
+<div class="reveal">
+<h1>Re:Nari explores<br>culture, design & voices.</h1>
+<p>A quiet yet powerful platform connecting emerging voices across design, fashion, art and identity between India and Europe through conversations, essays and contemporary culture.</p>
+<div>
+<a href="#podcast" class="btn">Listen Now</a>
+<a href="#blog" class="btn">Read Journal</a>
+</div>
+</div>
+</section>
+<section id="podcast">
+<h2 class="title">Podcast Archive</h2>
+<p class="small">Conversations with creatives, founders, designers and thinkers shaping tomorrow.</p>
+<div class="grid" id="episodes"><div class="card"><h3>Loading episodes...</h3><p>Please wait while the archive loads.</p></div></div>
+</section>
+<section id="blog">
+<h2 class="title">Journal Essays</h2>
+<p class="small">Slow editorial reflections on creativity, migration, identity and future industries.</p>
+<div class="grid">
+<div class="card"><h3>Why Culture Matters</h3><p>How heritage shapes innovation in global creative industries.</p></div>
+<div class="card"><h3>The Rise of Audio</h3><p>Why podcasts are the new intimate media channel.</p></div>
+<div class="card"><h3>India x Europe</h3><p>New collaborations redefining creative exchange.</p></div>
+</div>
+</section>
+<section id="contact">
+<h2 class="title">Contact</h2>
+<p class="small">Collaborate, feature on the podcast, or partner with Re:Nari.</p>
+<form>
+<input type="text" placeholder="Your Name">
+<input type="email" placeholder="Your Email">
+<textarea rows="6" placeholder="Your Message"></textarea>
+<button type="submit">Send Message</button>
+</form>
+</section>
+<footer>© 2026 Re:Nari — Cultural Futures Platform</footer>
+</body>
+</html>
